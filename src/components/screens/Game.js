@@ -4,6 +4,9 @@ import Question from '../Question/Question';
 
 export default function Game(props) {
 
+    // TODO:
+    // Add state with user answers
+
     const [questions, setQuestions] = React.useState([]);
 
     React.useEffect(()=>{
@@ -18,15 +21,24 @@ export default function Game(props) {
         if(props.newGame) getQuestionsFromAPI();
     },[props.newGame]);
 
+    // Helper functions
     console.log(questions);
+    questions.forEach(q => console.log(q.correct_answer))
 
-    const questionsElement = questions.map(q =>
-        <Question
-            key={nanoid()}
-            question={q.question}
-            correctAnswer={q.correct_answer}
-            incorrectAnswers={q.incorrect_answers}
-        />
+    const questionsElement = questions.map(q => {
+        const id = nanoid();
+        
+        return (
+            <Question
+                key={id}
+                id={id}
+                question={q.question}
+                correctAnswer={q.correct_answer}
+                incorrectAnswers={q.incorrect_answers}
+            />
+        )
+
+        }
     );
     
     return (

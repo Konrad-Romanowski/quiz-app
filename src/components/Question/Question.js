@@ -4,21 +4,35 @@ import he from 'he'; // HTML entity encoder/decoder - used to format HTML symbol
 export default function Question(props) {
 
     // TODO:
-    // Mix answers
-    // Add a key prop to the answersElements
-    // Modify answersElements to input+label elements
+    // Style template
 
     const answers = [props.correctAnswer, ...props.incorrectAnswers];
-    const answersElements = answers.map(answer =>
-        <div>{he.decode(answer)}</div>
-    )
+    answers.sort(()=>Math.random() - 0.5);
+
+    const answersElements = answers.map((answer,index) => {
+        const answerID = `${props.id}-${index}`;
 
         return (
+            <span key={answerID}>
+                <input
+                    id={answerID}
+                    value={answer}
+                    name={props.id}
+                    type='radio'
+                />
+                <label htmlFor={answerID}>{he.decode(answer)}</label>
+            </span>
+        )
+
+        }
+    );
+        
+    return (
         <section className='question'>
             <div className='question-question'>{he.decode(props.question)}</div>
-            <div className='question-answers'>
+            <form name={props.id} className='question-answers'>
                 {answersElements}
-            </div>
+            </form>
             <hr/>
         </section>
     )
