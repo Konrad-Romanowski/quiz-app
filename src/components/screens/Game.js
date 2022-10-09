@@ -25,14 +25,14 @@ export default function Game(props) {
     console.log(questions);
     questions.forEach(q => console.log(q.correct_answer))
 
-    const questionsElement = questions.map(q => {
+    const questionsElement = questions.map((q,index) => {
         const id = nanoid();
         
         return (
             <Question
                 key={id}
                 id={id}
-                question={q.question}
+                question={`${index+1}. ${q.question}`}
                 correctAnswer={q.correct_answer}
                 incorrectAnswers={q.incorrect_answers}
             />
@@ -42,10 +42,10 @@ export default function Game(props) {
     );
     
     return (
-        <article className='game'>
+        <main className='game'>
             <section className='game-section'>
                 {questionsElement}
             </section>
-        </article>
+        </main>
     )
 }

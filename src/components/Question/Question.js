@@ -13,7 +13,7 @@ export default function Question(props) {
         const answerID = `${props.id}-${index}`;
 
         return (
-            <span key={answerID}>
+            <span className='answer' key={answerID}>
                 <input
                     id={answerID}
                     value={answer}
@@ -28,9 +28,9 @@ export default function Question(props) {
     );
         
     return (
-        <section className='question'>
-            <div className='question-question'>{he.decode(props.question)}</div>
-            <form name={props.id} className='question-answers'>
+        <section className='question-container'>
+            <p className='question'>{he.decode(props.question)}</p>
+            <form name={props.id} className='answer-form'>
                 {answersElements}
             </form>
             <hr/>
