@@ -5,16 +5,33 @@ import Question from '../Question/Question';
 export default function Game(props) {
 
     // TODO:
-    // Add state with user answers
+    // Add function that checks answers
 
     const [questions, setQuestions] = React.useState([]);
+    const [selectedAnswers, setSelectedAnswers] = React.useState([]);   
 
     React.useEffect(()=>{
         async function getQuestionsFromAPI() {
             const res = await fetch('https://opentdb.com/api.php?amount=5&type=multiple');
             const data = await res.json();
+
             if(data.response_code === 0) {
-                setQuestions(data.results);
+                const receivedQuestions = data.results.reduce((questionsArray,question)=>{
+
+                    const answers = [question.correct_answer, ...question.incorrect_answers];
+                    answers.sort(()=>Math.random() - 0.5);
+
+                    const questionData = {
+                        question: question.question,
+                        answers,
+                        correctAnswer: question.correct_answer,
+                    }
+
+                    questionsArray.push(questionData);
+                    return questionsArray;
+                },[]);
+
+                setQuestions(receivedQuestions);
             }
         }
 
@@ -22,8 +39,14 @@ export default function Game(props) {
     },[props.newGame]);
 
     // Helper functions
-    console.log(questions);
-    questions.forEach(q => console.log(q.correct_answer))
+    // console.log(questions);
+    // console.log('correct answers:',
+    //     questions.reduce((correctAnswers,q) => {
+    //         correctAnswers.push(q.correctAnswer);
+    //         return correctAnswers;
+    //     },[])
+    // );
+    console.log(selectedAnswers);
 
     const questionsElement = questions.map((q,index) => {
         const id = nanoid();
@@ -32,9 +55,11 @@ export default function Game(props) {
             <Question
                 key={id}
                 id={id}
-                question={`${index+1}. ${q.question}`}
-                correctAnswer={q.correct_answer}
-                incorrectAnswers={q.incorrect_answers}
+                questionNumber={index+1}
+                question={q.question}
+                answers={q.answers}
+                selectedAnswers={selectedAnswers}
+                setSelectedAnswers={setSelectedAnswers}
             />
         )
 
