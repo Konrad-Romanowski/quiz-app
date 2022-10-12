@@ -8,7 +8,14 @@ export default function Game(props) {
     // Add function that checks answers
 
     const [questions, setQuestions] = React.useState([]);
-    const [selectedAnswers, setSelectedAnswers] = React.useState([]);   
+    // const [selectedAnswers, setSelectedAnswers] = React.useState(Array.from({length: 5}, answer => null));
+
+    function checkAnswers() {
+        let points = 0;
+        questions.forEach(q=> {
+            console.log(q.selectedAnswer);
+        });
+    }
 
     React.useEffect(()=>{
         async function getQuestionsFromAPI() {
@@ -16,15 +23,17 @@ export default function Game(props) {
             const data = await res.json();
 
             if(data.response_code === 0) {
-                const receivedQuestions = data.results.reduce((questionsArray,question)=>{
+                const receivedQuestions = data.results.reduce((questionsArray,question,index)=>{
 
                     const answers = [question.correct_answer, ...question.incorrect_answers];
                     answers.sort(()=>Math.random() - 0.5);
 
                     const questionData = {
+                        questionNumber: index+1,
                         question: question.question,
                         answers,
                         correctAnswer: question.correct_answer,
+                        selectedAnswer: null
                     }
 
                     questionsArray.push(questionData);
@@ -46,20 +55,16 @@ export default function Game(props) {
     //         return correctAnswers;
     //     },[])
     // );
-    console.log(selectedAnswers);
 
-    const questionsElement = questions.map((q,index) => {
+    const questionsElement = questions.map((question,index) => {
         const id = nanoid();
         
         return (
             <Question
                 key={id}
                 id={id}
-                questionNumber={index+1}
-                question={q.question}
-                answers={q.answers}
-                selectedAnswers={selectedAnswers}
-                setSelectedAnswers={setSelectedAnswers}
+                question={question}
+                setQuestions={setQuestions}
             />
         )
 
@@ -71,6 +76,13 @@ export default function Game(props) {
             <section className='game-section'>
                 {questionsElement}
             </section>
+            <button
+                className='check-answers-button'
+                onClick={checkAnswers}
+                // disabled={true}
+            >
+                Check answers
+            </button>
         </main>
     )
 }

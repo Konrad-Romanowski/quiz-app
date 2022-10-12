@@ -3,19 +3,21 @@ import he from 'he'; // HTML entity encoder/decoder - used to format HTML symbol
 
 export default function Question(props) {
 
+    const {questionNumber, question, answers, correctAnswer, selectedAnswer} = props.question;
+
     // TODO:
     // Style template
 
     function selectAnswer(answer) {
-        props.setSelectedAnswers(prevSelectedAnswers => {
-            const newAnswers = [...prevSelectedAnswers];
-            newAnswers[props.questionNumber - 1] = answer;
-
-            return newAnswers;
-        })
+        props.setQuestions(prevQuestionData => {
+            const newQuestionData = [...prevQuestionData];
+            newQuestionData[questionNumber - 1].selectedAnswer = answer;
+    
+            return newQuestionData;
+        })        
     }
 
-    const answersElements = props.answers.map((answer,index) => {
+    const answersElements = answers.map((answer,index) => {
         const answerID = `${props.id}-${index}`;
 
         return (
@@ -25,7 +27,7 @@ export default function Question(props) {
                     id={answerID}
                     name={props.id}
                     value={answer}
-                    checked={props.selectedAnswers[props.questionNumber-1] === answer}
+                    checked={selectedAnswer === answer}
                     onChange={()=>selectAnswer(answer)}
                 />
                 <label htmlFor={answerID}>{he.decode(answer)}</label>
@@ -37,7 +39,7 @@ export default function Question(props) {
         
     return (
         <section className='question-container'>
-            <p className='question'>{`${props.questionNumber}. ${he.decode(props.question)}`}</p>
+            <p className='question'>{`${questionNumber}. ${he.decode(question)}`}</p>
             <form name={props.id} className='answer-form'>
                 {answersElements}
             </form>
