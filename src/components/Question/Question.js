@@ -8,13 +8,21 @@ export default function Question(props) {
     // TODO:
     // Style template
 
+    const styleCorrect = {
+        backgroundColor: '#bff8bf'
+    }
+
+    const styleIncorrect = {
+        backgroundColor: '#ffa9a9'
+    }
+
     function selectAnswer(answer) {
         props.setQuestions(prevQuestionData => {
             const newQuestionData = [...prevQuestionData];
             newQuestionData[questionNumber - 1].selectedAnswer = answer;
     
             return newQuestionData;
-        })        
+        });
     }
 
     const answersElements = answers.map((answer,index) => {
@@ -29,8 +37,15 @@ export default function Question(props) {
                     value={answer}
                     checked={selectedAnswer === answer}
                     onChange={()=>selectAnswer(answer)}
+                    disabled={props.areAnswersRevealed}
                 />
-                <label htmlFor={answerID}>{he.decode(answer)}</label>
+                <label
+                    htmlFor={answerID}
+                    style={(props.areAnswersRevealed && answer === correctAnswer) ? styleCorrect : 
+                            (props.areAnswersRevealed && selectedAnswer === answer && selectedAnswer !== correctAnswer) ? styleIncorrect : null}
+                >
+                    {he.decode(answer)}
+                </label>
             </span>
         )
 

@@ -5,16 +5,22 @@ import Question from '../Question/Question';
 export default function Game(props) {
 
     // TODO:
-    // Add function that checks answers
+    // Display score after checking the answers
+    // Modify check answers button, to start new game after checking answers
 
     const [questions, setQuestions] = React.useState([]);
-    // const [selectedAnswers, setSelectedAnswers] = React.useState(Array.from({length: 5}, answer => null));
-
+    const [areAnswersRevealed, setAreAnswersRevealed] = React.useState(false);
+    
     function checkAnswers() {
+
+        setAreAnswersRevealed(true);
+
         let points = 0;
-        questions.forEach(q=> {
-            console.log(q.selectedAnswer);
+        questions.forEach(question=>{
+            if(question.selectedAnswer === question.correctAnswer) points++;
         });
+
+        console.log(points);
     }
 
     React.useEffect(()=>{
@@ -47,16 +53,7 @@ export default function Game(props) {
         if(props.newGame) getQuestionsFromAPI();
     },[props.newGame]);
 
-    // Helper functions
-    // console.log(questions);
-    // console.log('correct answers:',
-    //     questions.reduce((correctAnswers,q) => {
-    //         correctAnswers.push(q.correctAnswer);
-    //         return correctAnswers;
-    //     },[])
-    // );
-
-    const questionsElement = questions.map((question,index) => {
+    const questionsElement = questions.map(question => {
         const id = nanoid();
         
         return (
@@ -65,6 +62,7 @@ export default function Game(props) {
                 id={id}
                 question={question}
                 setQuestions={setQuestions}
+                areAnswersRevealed={areAnswersRevealed}
             />
         )
 
@@ -77,7 +75,7 @@ export default function Game(props) {
                 {questionsElement}
             </section>
             <button
-                className='check-answers-button'
+                className='button check-answers-button'
                 onClick={checkAnswers}
                 // disabled={true}
             >

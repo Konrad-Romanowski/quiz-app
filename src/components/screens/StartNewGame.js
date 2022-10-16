@@ -6,7 +6,7 @@ export default function StartNewGame(props) {
             <section className='start-new-game-menu'>
                 <h2 className='start-new-game-title'>Quiz App</h2>
                 <h3 className='start-new-game-subtitle'>Test your knowledge!</h3>
-                <button className='start-new-game-button' onClick={props.startNewGame}>New game</button>
+                <button className='button start-new-game-button' onClick={props.startNewGame}>New game</button>
             </section>
         </article>
     )
