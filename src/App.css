@@ -50,15 +50,16 @@ body {
 .button {
     height: 2.5rem;
     align-self: center;
+    justify-content: center;
     border: none;
     background-color: #3c3c8a;
     color: #fff;
     border-radius: 8px;
     cursor: pointer;
+    padding: 0.25rem 1.5rem;
 }
 
 .start-new-game-button {
-    padding: 0.25rem 1rem;
     font-size: 20px;
 }
 
@@ -124,8 +125,19 @@ hr {
     border-bottom: none;
 }
 
+.check-answers {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.check-answers .score {
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+}
+
 .check-answers-button {
-    padding: 0.25rem 1.5rem;
     font-size: 1rem;
 }
 
@@ -144,6 +156,10 @@ hr {
 @media (max-width: 400px) {
     .start-new-game-subtitle {
         font-weight: 400;
+    }
+
+    .button {
+        height: 3.5rem;
     }
 
     .game {
@@ -181,8 +197,16 @@ hr {
         margin: 2rem auto;
     }
 
+    .check-answers {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .check-answers .score {
+        font-size: 1.25rem;
+    }
+
     .check-answers-button {
-        /* padding: 0.25rem 1.5rem; */
         font-size: 1.25rem;
     }
 }

@@ -5,22 +5,22 @@ import Question from '../Question/Question';
 export default function Game(props) {
 
     // TODO:
-    // Display score after checking the answers
-    // Modify check answers button, to start new game after checking answers
 
     const [questions, setQuestions] = React.useState([]);
     const [areAnswersRevealed, setAreAnswersRevealed] = React.useState(false);
+    const [score, setScore] = React.useState(0);
     
     function checkAnswers() {
+        if(areAnswersRevealed) {
+            setAreAnswersRevealed(false);
+            props.setNewGame(false);
+        } else {
+            questions.forEach(question=>{
+                if(question.selectedAnswer === question.correctAnswer) setScore(prevScore => prevScore+1);
+            });
+            setAreAnswersRevealed(true);
+        }
 
-        setAreAnswersRevealed(true);
-
-        let points = 0;
-        questions.forEach(question=>{
-            if(question.selectedAnswer === question.correctAnswer) points++;
-        });
-
-        console.log(points);
     }
 
     React.useEffect(()=>{
@@ -74,13 +74,20 @@ export default function Game(props) {
             <section className='game-section'>
                 {questionsElement}
             </section>
-            <button
-                className='button check-answers-button'
-                onClick={checkAnswers}
-                // disabled={true}
-            >
-                Check answers
-            </button>
+
+            <section className='check-answers'>
+                {areAnswersRevealed && <p className='score'>
+                    {`You scored ${score} out of 5 correct answers`}
+                </p>}
+
+                <button
+                    className='button check-answers-button'
+                    onClick={checkAnswers}
+                >
+                    {areAnswersRevealed ? 'Start new game' : 'Check answers'}
+                </button>
+            </section>
+            
         </main>
     )
 }

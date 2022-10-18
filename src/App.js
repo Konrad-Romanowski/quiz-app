@@ -18,7 +18,7 @@ export default function App() {
     return (
         <>
             {newGame ?
-                <Game newGame={newGame} isPending={isPending}/> :
+                <Game newGame={newGame} setNewGame={setNewGame} isPending={isPending}/> :
                 <StartNewGame startNewGame={startNewGame}/>
             }
         </>
