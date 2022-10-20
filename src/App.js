@@ -5,21 +5,16 @@ import Game from './components/screens/Game';
 export default function App() {
 
     // TODO:
-    // Add loading screen
     // Allow user to select difficulty of the questions
+    // Refactor code
 
     const [newGame, setNewGame] = React.useState(false);
-    const [isPending, setIsPending] = React.useState(true);
-    
-    function startNewGame() {
-        setNewGame(true);
-    }
     
     return (
         <>
             {newGame ?
-                <Game newGame={newGame} setNewGame={setNewGame} isPending={isPending}/> :
-                <StartNewGame startNewGame={startNewGame}/>
+                <Game newGame={newGame} setNewGame={setNewGame}/> :
+                <StartNewGame setNewGame={setNewGame}/>
             }
         </>
     )

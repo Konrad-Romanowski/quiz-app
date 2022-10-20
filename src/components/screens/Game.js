@@ -1,14 +1,16 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
 import Question from '../Question/Question';
+import LoadingScreen from './LoadingScreen';
 
 export default function Game(props) {
-
-    // TODO:
-
+    
+    const [isPending, setIsPending] = React.useState(true);
     const [questions, setQuestions] = React.useState([]);
     const [areAnswersRevealed, setAreAnswersRevealed] = React.useState(false);
     const [score, setScore] = React.useState(0);
+
+    const {newGame} = props;
     
     function checkAnswers() {
         if(areAnswersRevealed) {
@@ -24,7 +26,8 @@ export default function Game(props) {
     }
 
     React.useEffect(()=>{
-        async function getQuestionsFromAPI() {
+        async function getQuestionsFromAPI() {  
+            setIsPending(true);          
             const res = await fetch('https://opentdb.com/api.php?amount=5&type=multiple');
             const data = await res.json();
 
@@ -47,11 +50,13 @@ export default function Game(props) {
                 },[]);
 
                 setQuestions(receivedQuestions);
+                setIsPending(false);
             }
         }
-
-        if(props.newGame) getQuestionsFromAPI();
-    },[props.newGame]);
+        
+        if(newGame) getQuestionsFromAPI();
+        
+    },[newGame]);
 
     const questionsElement = questions.map(question => {
         const id = nanoid();
@@ -70,6 +75,7 @@ export default function Game(props) {
     );
     
     return (
+        isPending ? <LoadingScreen /> :
         <main className='game'>
             <section className='game-section'>
                 {questionsElement}
