@@ -6,33 +6,35 @@
     color: #3c3c8a;
 }
 
-body { 
+.wrapper { 
     background: -webkit-linear-gradient(-45deg, #c7ecf3 20%, #fdb3e1 100%) no-repeat;
     height: 100vh;
+    width: 100vw;
+    display: flex;
+    position: fixed;
+    overflow-y: scroll;
+    padding: 4rem 0;
 }
 
 .start-new-game, .game, .loading-screen {
+    margin: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: auto;
-}
 
-.start-new-game-menu {
-    width: 300px;
-    height: 240px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    border-radius: 16px;
-    padding: 3rem 4rem 2rem 4rem;
+    background-color: #fff;
 
     -webkit-box-shadow: 4px 4px 16px -5px #42445a;
     -moz-box-shadow: 4px 4px 16px -5px #42445a;
     box-shadow: 4px 4px 16px -5px #42445a;
+}
+
+.start-new-game {
+    width: 300px;
+    height: 240px;
+    border-radius: 16px;
+    padding: 3rem 4rem 2rem 4rem;
 }
 
 .start-new-game-title {
@@ -63,24 +65,25 @@ body {
     font-size: 20px;
 }
 
-.loading-screen p {
+.loading-screen {
     width: 300px;
     height: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
     border-radius: 16px;
-    -webkit-box-shadow: 4px 4px 16px -5px #42445a;
-    -moz-box-shadow: 4px 4px 16px -5px #42445a;
-    box-shadow: 4px 4px 16px -5px #42445a;
+}
+
+.loading-screen p {
     font-size: 1.25rem;
 }
 
 .game {
+    margin: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: white;
     padding: 3rem 4rem;
     border-radius: 1rem;
@@ -179,12 +182,7 @@ hr {
 
     .game {
         height: auto;
-        margin: 3rem 0;
         padding: 2rem;
-    }
-
-    .game-section {
-        /* padding: 2rem; */
     }
 
     .question {
