@@ -43,19 +43,16 @@ export default function App() {
         if(newGame) getQuestionsFromAPI();
         
     },[newGame]);
+    
 
-    if(newGame) {
-        return (
-            isPending ?
-            <LoadingScreen /> :
-            <Game
-                questions={questions}
-                setQuestions={setQuestions}
-                setNewGame={setNewGame}
-                setIsPending={setIsPending}
-            />
-        )
-    } else {
-        return <StartNewGame setNewGame={setNewGame}/>
-    }
+    if(!newGame) return <StartNewGame setNewGame={setNewGame}/>
+    if(newGame && isPending) return <LoadingScreen />
+    if(newGame && !isPending) return (
+        <Game
+            questions={questions}
+            setQuestions={setQuestions}
+            setNewGame={setNewGame}
+            setIsPending={setIsPending}
+        /> 
+    )
 }
