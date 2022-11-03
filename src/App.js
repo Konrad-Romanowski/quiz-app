@@ -6,15 +6,17 @@ import Game from './components/screens/Game';
 export default function App() {
 
     // TODO:
-    // Allow user to select difficulty of the questions
+    // Set selected difficulty to last users selection,
+    // Handle other response_code from the API,
 
     const [newGame, setNewGame] = React.useState(false);
     const [isPending, setIsPending] = React.useState(true);
     const [questions, setQuestions] = React.useState([]);
+    const [difficulty, setDifficulty] = React.useState('');
 
     React.useEffect(()=>{
         async function getQuestionsFromAPI() {
-            const res = await fetch('https://opentdb.com/api.php?amount=5&type=multiple');
+            const res = await fetch(`https://opentdb.com/api.php?amount=5&type=multiple&difficulty=${difficulty}`);
             const data = await res.json();
 
             if(data.response_code === 0) {
@@ -37,6 +39,8 @@ export default function App() {
 
                 setQuestions(receivedQuestions);
                 setIsPending(false);
+            } else {
+                // handle API error
             }
         }
         
@@ -45,7 +49,13 @@ export default function App() {
     },[newGame]);
     
 
-    if(!newGame) return <StartNewGame setNewGame={setNewGame}/>
+    if(!newGame) return (
+        <StartNewGame
+            setNewGame={setNewGame}
+            difficulty={difficulty}
+            setDifficulty={setDifficulty}
+        />
+    )
     if(newGame && isPending) return <LoadingScreen />
     if(newGame && !isPending) return (
         <Game
