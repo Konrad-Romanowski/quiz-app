@@ -6,13 +6,12 @@ import Game from './components/screens/Game';
 export default function App() {
 
     // TODO:
-    // Set selected difficulty to last users selection,
     // Handle other response_code from the API,
 
     const [newGame, setNewGame] = React.useState(false);
     const [isPending, setIsPending] = React.useState(true);
     const [questions, setQuestions] = React.useState([]);
-    const [difficulty, setDifficulty] = React.useState('');
+    const [difficulty, setDifficulty] = React.useState(sessionStorage.getItem('difficulty' || ''));
 
     React.useEffect(()=>{
         async function getQuestionsFromAPI() {

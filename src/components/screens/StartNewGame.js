@@ -7,7 +7,8 @@ export default function StartNewGame(props) {
     }
 
     function changeDifficulty(e) {
-        props.setDifficulty(e.target.value)
+        props.setDifficulty(e.target.value);
+        sessionStorage.setItem('difficulty',e.target.value);
     }
 
     return (
