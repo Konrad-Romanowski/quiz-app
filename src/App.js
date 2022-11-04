@@ -11,7 +11,7 @@ export default function App() {
     const [newGame, setNewGame] = React.useState(false);
     const [isPending, setIsPending] = React.useState(true);
     const [questions, setQuestions] = React.useState([]);
-    const [difficulty, setDifficulty] = React.useState(sessionStorage.getItem('difficulty' || ''));
+    const [difficulty, setDifficulty] = React.useState(sessionStorage.getItem('difficulty') || '');
 
     React.useEffect(()=>{
         async function getQuestionsFromAPI() {
