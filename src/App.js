@@ -2,6 +2,7 @@ import React from 'react';
 import StartNewGame from './components/screens/StartNewGame';
 import LoadingScreen from './components/screens/LoadingScreen';
 import Game from './components/screens/Game';
+import ErrorScreen from './components/screens/ErrorScreen';
 
 export default function App() {
 
@@ -12,6 +13,7 @@ export default function App() {
     const [isPending, setIsPending] = React.useState(true);
     const [questions, setQuestions] = React.useState([]);
     const [difficulty, setDifficulty] = React.useState(sessionStorage.getItem('difficulty') || '');
+    const [isErrorFromAPI,setIsErrorFromAPI] = React.useState(false);
 
     React.useEffect(()=>{
         async function getQuestionsFromAPI() {
@@ -37,10 +39,13 @@ export default function App() {
                 },[]);
 
                 setQuestions(receivedQuestions);
-                setIsPending(false);
+
             } else {
                 // handle API error
+                setIsErrorFromAPI(true);
             }
+
+            setIsPending(false);
         }
         
         if(newGame) getQuestionsFromAPI();
@@ -56,7 +61,14 @@ export default function App() {
         />
     )
     if(newGame && isPending) return <LoadingScreen />
-    if(newGame && !isPending) return (
+    if(newGame && !isPending && isErrorFromAPI) return (
+        <ErrorScreen
+            setNewGame={setNewGame}
+            setIsPending={setIsPending}
+            setIsErrorFromAPI={setIsErrorFromAPI}
+        />
+    )
+    if(newGame && !isPending && !isErrorFromAPI) return (
         <Game
             questions={questions}
             setQuestions={setQuestions}

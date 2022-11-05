@@ -16,7 +16,7 @@
     padding: 4rem 0;
 }
 
-.start-new-game, .game, .loading-screen {
+.start-new-game, .game, .loading-screen, .error-screen {
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -80,7 +80,6 @@
     font-size: 1rem;
 }
 
-
 .button {
     height: 2.5rem;
     align-self: center;
@@ -109,6 +108,30 @@
 
 .loading-screen p {
     font-size: 1.25rem;
+}
+
+.error-screen {
+    width: 300px;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 16px;
+}
+
+.error-screen-title {
+    font-weight: 400;
+    font-size: 28px;
+}
+
+.error-screen-subtitle {
+    font-weight: 100;
+    font-size: 18px;
+}
+
+.error-screen-button {
+    font-size: 20px;
 }
 
 .game {
