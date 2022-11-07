@@ -226,7 +226,7 @@ hr {
     background-color: #ffa9a9;
 } */
 
-@media (max-width: 400px) {
+@media (max-width: 960px) {
     .start-new-game {
         height: 340px;
     }
@@ -249,6 +249,16 @@ hr {
         height: 3.5rem;
     }
 
+    .game {
+        padding: 3rem;
+        max-width: 800px;
+    }
+    .answer-form {
+        gap: 0.75rem;
+    }
+}
+
+@media (max-width: 500px) {
     .game {
         height: auto;
         padding: 2rem;
