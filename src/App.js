@@ -6,9 +6,6 @@ import ErrorScreen from './components/screens/ErrorScreen';
 
 export default function App() {
 
-    // TODO:
-    // Handle other response_code from the API,
-
     const [newGame, setNewGame] = React.useState(false);
     const [isPending, setIsPending] = React.useState(true);
     const [questions, setQuestions] = React.useState([]);
