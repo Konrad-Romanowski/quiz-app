@@ -6,14 +6,11 @@ export default function Question(props) {
     const {questionNumber, question, answers, correctAnswer, selectedAnswer} = props.question;
     const {areAnswersRevealed, setQuestions, id} = props;
 
-    // TODO:
-    // Style template
-
-    const styleCorrect = {
+    const correctAnswerStyle = {
         backgroundColor: '#bff8bf'
     }
 
-    const styleIncorrect = {
+    const incorrectAnswerStyle = {
         backgroundColor: '#ffa9a9'
     }
 
@@ -42,8 +39,8 @@ export default function Question(props) {
                 />
                 <label
                     htmlFor={answerID}
-                    style={(areAnswersRevealed && answer === correctAnswer) ? styleCorrect : 
-                            (areAnswersRevealed && selectedAnswer === answer && selectedAnswer !== correctAnswer) ? styleIncorrect : null}
+                    style={(areAnswersRevealed && answer === correctAnswer) ? correctAnswerStyle : 
+                            (areAnswersRevealed && selectedAnswer === answer && selectedAnswer !== correctAnswer) ? incorrectAnswerStyle : null}
                 >
                     {he.decode(answer)}
                 </label>
