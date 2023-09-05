@@ -1,5 +1,4 @@
 import React from 'react';
-import { nanoid } from 'nanoid';
 import Question from '../Question/Question';
 
 export default function Game(props) {
@@ -22,13 +21,11 @@ export default function Game(props) {
         }
     }
 
-    const questionsElement = questions.map(question => {
-        const id = nanoid();
-        
+    const questionsElement = questions.map(question => {        
         return (
             <Question
-                key={id}
-                id={id}
+                key={question.id}
+                id={question.id}
                 question={question}
                 setQuestions={setQuestions}
                 areAnswersRevealed={areAnswersRevealed}

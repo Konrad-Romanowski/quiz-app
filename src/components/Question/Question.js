@@ -22,7 +22,7 @@ export default function Question(props) {
             return newQuestionData;
         });
     }
-
+    
     const answersElements = answers.map((answer,index) => {
         const answerID = `${id}-${index}`;
 

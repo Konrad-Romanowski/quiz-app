@@ -3,6 +3,7 @@ import StartNewGame from './components/screens/StartNewGame';
 import LoadingScreen from './components/screens/LoadingScreen';
 import Game from './components/screens/Game';
 import ErrorScreen from './components/screens/ErrorScreen';
+import { nanoid } from 'nanoid';
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
                     answers.sort(()=>Math.random() - 0.5);
 
                     const questionData = {
+                        id: nanoid(),
                         questionNumber: index+1,
                         question: question.question,
                         answers,
